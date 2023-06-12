@@ -78,7 +78,8 @@ def process_files(root_dir: Path) -> None:
     structure = root_dir.glob("**\*")
 
     for path in structure:
-        if path.is_file() and path.parent.name not in CATEGORIES:
+        if path.is_file() and not len(set(path.parts) & set(CATEGORIES)):
+            # print(set(path.parts) & set(CATEGORIES))
             category = get_category(path)
             
             if category == "other":
@@ -122,10 +123,14 @@ def read_process_result():
     result = ""
     
     for key, value in PROCESS_RESULTS.items():
-        text = ", ".join(value).lower()
-        result += f"{key}: {text}\n"
+        if len(value):
+            text = ", ".join(value).lower()
+            result += f"{key}: {text}\n"
     
-    print(result)
+    if result:
+        print(result)
+    else:
+        print("No changes was made")
 
 
 
