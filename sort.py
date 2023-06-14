@@ -137,7 +137,7 @@ def read_process_result():
 def main():
     try:
         root_dir = Path(sys.argv[1])
-    except:
+    except IndexError:
         print(f"You mast enter parameter 'path to folder'. Command example: python {sys.argv[0]} [pathToFolder]")
         return False
     
